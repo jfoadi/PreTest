@@ -39,7 +39,7 @@ def export_formatted(data, filename):
         None
     """
     try:
-        with open(filename, 'w') as file:
+        with open("data/"+filename, 'w') as file:
             file.write(str(data))
         print(f"Data successfully exported to {filename}")
     except Exception as e:
