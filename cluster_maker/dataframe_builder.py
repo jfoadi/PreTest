@@ -115,33 +115,36 @@ def non_globular_cluster(seed_df, n_points=100, col_specs=None, random_state=Non
         pd.DataFrame: Simulated DataFrame.
     
     """
+    try:
+        if random_state is not None:
+            np.random.seed(random_state)
+        
+        simulated_data = []
 
-    if random_state is not None:
-        np.random.seed(random_state)
-    
-    simulated_data = []
+        for _, representative in seed_df.iterrows():
+            for _ in range(n_points):
+                simulated_point = {}
+                random_data=random_function(**random_function_params)
+                for col in seed_df.columns:
+                    # Numerical columns: apply column-specific specifications
+                    if col_specs and col in col_specs:
+                        #get the function and the parameters
+                        func = col_specs[col].get('func', lambda x: x)
+                        func_params = col_specs[col].get('func_params', None)
 
-    for _, representative in seed_df.iterrows():
-        for _ in range(n_points):
-            simulated_point = {}
-            random_data=random_function(**random_function_params)
-            for col in seed_df.columns:
-                # Numerical columns: apply column-specific specifications
-                if col_specs and col in col_specs:
-                    #get the function and the parameters
-                    func = col_specs[col].get('func', lambda x: x)
-                    func_params = col_specs[col].get('func_params', None)
-
-                    #apply the function to the random data and add to the representative point
-                    if func_params is not None:
-                        simulated_point[col] = representative[col]+func(random_data, func_params)
-                    else:
-                        simulated_point[col] = representative[col]+func(random_data)
-                    
+                        #apply the function to the random data and add to the representative point
+                        if func_params is not None:
+                            simulated_point[col] = representative[col]+func(random_data, func_params)
+                        else:
+                            simulated_point[col] = representative[col]+func(random_data)
                         
-                else:
-                    raise ValueError(f"Column {col} has no specifications in col_specs.")
-            simulated_data.append(simulated_point)
-    
-    return pd.DataFrame(simulated_data)
+                            
+                    else:
+                        raise ValueError(f"Column {col} has no specifications in col_specs.")
+                simulated_data.append(simulated_point)
+        
+        return pd.DataFrame(simulated_data)
+    except Exception as e:
+        print(f"Error simulating non-globular cluster: {e}")
+        return None
     

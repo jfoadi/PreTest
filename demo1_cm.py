@@ -40,7 +40,7 @@ import numpy as np
 ##generate non globular data
 col_specs =  {
     "X_1": {"func":lambda x: x,},
-    "X_2": {"func":lambda x: (4*x)**2+3*x+np.random.uniform(-0.05,0.05)}
+    "X_2": {"func":lambda x: (4*x)**2+x+np.random.uniform(-0.05,0.05)}
 }
 
 non_globular_data=cm.non_globular_cluster(test_data, n_points=20, col_specs=col_specs, random_state=None,random_function=np.random.uniform, random_function_params={"low":-0.1, "high":0.1})
