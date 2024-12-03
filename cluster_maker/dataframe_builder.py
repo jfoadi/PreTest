@@ -95,12 +95,6 @@ def simulate_data(seed_df, n_points=100, col_specs=None, random_state=None):
     
     return pd.DataFrame(simulated_data)
 
-##    Add a function, called non-globular_cluster(), to 
-##    dataframe_builder.py, that tries to simulate non-globular
-##    clusters. Similarly to simulate_data(), this function should
-##    take the seed data structure (the dataframe created by 
-##    define_dataframe_structure()) and the number of points to
-##    simulate, but also whatever parameters you think are necessary.
 
 def non_globular_cluster(seed_df, n_points=100, col_specs=None, random_state=None,random_function=np.random.normal,random_function_params={'loc':0,'scale':0.1}):
     """

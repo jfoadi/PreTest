@@ -44,7 +44,7 @@ def export_formatted(data, filename):
     """
     try:
         with open(filename, "w") as file:
-            #add information about each colum such as its data type and lengths, if there are any nul values to a heder in the file
+            #adds information about each column such as its data type and lengths and if there are any null values to a heder in the file
             file.write("Data Information:\n")
             file.write(f"\tNumber of Data Points: {len(data)}\n\n")
             file.write("Column Information:\n")
