@@ -45,6 +45,18 @@ def define_dataframe_structure(column_specs):
 
 ## Function to simulate data
 def simulate_data(seed_df, n_points=100, col_specs=None, random_state=None):
+    """
+    The simulate_data function is used to generate data based on the seed DataFrame. 
+    
+    args: 
+        - seed_df: a DataFrame with the structure defined by the define_dataframe_structure function.
+        - n_points: the number of simulated points to generate for each representative point in the seed DataFrame.
+        - col_specs: a dictionary that specifies the distribution of the data for each column. If not provided, an error will be raised.
+        - random_state: an integer that specifies the random seed for reproducibility. If not provided, the results will not be reproducible.
+    return:
+        - A DataFrame with the simulated data based on the seed DataFrame and the column specifications where each row represents a simulated point
+          and each column represents a feature.
+    """
     if random_state is not None:
         np.random.seed(random_state)
     
