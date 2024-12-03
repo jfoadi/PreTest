@@ -11,3 +11,6 @@ from .dataframe_builder import (
     non_globular_cluster)
 
 from .data_exporter import (export_to_csv, export_formatted)
+
+from .graphics import plot_clusters
+
