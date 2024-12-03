@@ -82,3 +82,73 @@ def simulate_data(seed_df, n_points=100, col_specs=None, random_state=None):
             simulated_data.append(simulated_point)
     
     return pd.DataFrame(simulated_data)
+
+## Function to simulate non-globular clusters
+def non_globular_cluster(seed_df, n_points=100, col_specs=None, random_state=None, cluster_params=None):
+    """
+    Simulates non-globular clusters based on the seed DataFrame.
+
+    Args:
+    - seed_df: a DataFrame with the structure defined by the define_dataframe_structure function.
+    - n_points: the number of simulated points to generate for each representative point in the seed DataFrame.
+    - col_specs: a dictionary that specifies the distribution of the data for each column. If not provided, an error will be raised.
+    - random_state: an integer that specifies the random seed for reproducibility. If not provided, the results will not be reproducible.
+    - cluster_params: a dictionary that contains the parameters for simulating non-globular clusters.
+    Returns:
+    - A DataFrame with the simulated non-globular clusters based on the seed DataFrame and the column specifications where each row represents a simulated point
+      and each column represents a feature.
+    """
+    def apply_fun(x, fun,slope=1,intercept=0):
+        """
+        Apply a specified mathematical function to the input x.
+        
+        args:
+            - x: The input value.
+            - fun: The name of the mathematical function to apply. 
+                Supported functions: 'sin', 'cos', 'tan', 'exp', 'log', 'sqrt'.
+        
+        return:
+            - The result of applying the specified function to x.
+        """
+        if fun == 'exp':
+            return np.exp(x)
+        elif fun == 'log':
+            return np.log(x)
+        elif fun == 'sqrt':
+            return np.sqrt(x)
+        elif fun == 'lineal':
+            return slope*x + intercept
+        else:
+            raise ValueError(f"Unsupported function: {fun}")
+
+    if random_state is not None:
+        np.random.seed(random_state)
+
+    if cluster_params is None:
+        raise ValueError("Cluster parameters are required for simulating non-globular clusters.")
+
+    simulated_data = []
+
+    for _, representative in seed_df.iterrows():
+        for _ in range(n_points):
+            simulated_point = {}
+            for col in seed_df.columns:
+                if col_specs and col in col_specs:
+                    dist = col_specs[col].get('distribution', 'normal')
+                    variance = col_specs[col].get('variance', 1.0)
+
+                    if dist == 'normal':
+                        simulated_point[col] = representative[col] + np.random.normal(0, np.sqrt(variance))
+                    elif dist == 'uniform':
+                        simulated_point[col] = representative[col] + np.random.uniform(-variance, variance)
+                    else:
+                        raise ValueError(f"Unsupported distribution: {dist}")
+                else:
+                    raise ValueError(f"Column {col} has no specifications in col_specs.")
+            # Apply non-globular transformation
+            for col in cluster_params:
+                if col in simulated_point:
+                    simulated_point[col] =  apply_fun(simulated_point[col],cluster_params[col].get('fun',lambda x:x)) #simulated_point[col] * cluster_params[col]
+            simulated_data.append(simulated_point)
+
+    return pd.DataFrame(simulated_data)
