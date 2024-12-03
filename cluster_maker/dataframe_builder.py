@@ -105,7 +105,7 @@ def non_globular_cluster(seed_df, n_points=100, col_specs=None, random_state=Non
         args:
             - x: The input value.
             - fun: The name of the mathematical function to apply. 
-                Supported functions: 'sin', 'cos', 'tan', 'exp', 'log', 'sqrt'.
+                Supported functions:  'exp', 'log', 'sqrt', 'lineal'
         
         return:
             - The result of applying the specified function to x.
@@ -116,7 +116,7 @@ def non_globular_cluster(seed_df, n_points=100, col_specs=None, random_state=Non
             return np.log(x)
         elif fun == 'sqrt':
             return np.sqrt(x)
-        elif fun == 'lineal':
+        elif fun == 'linear':
             return slope*x + intercept
         else:
             raise ValueError(f"Unsupported function: {fun}")
