@@ -12,6 +12,20 @@ import numpy as np
 
 ## Function to define the wanted data structure
 def define_dataframe_structure(column_specs):
+    """
+    Define the structure of the DataFrame based on the column specifications. 
+
+    Args: 
+    - column_specs: a list of dictionaries, each dictionary contains the following keys:
+        - name: the name of the column
+        - reps: a list of representative points for the column
+    Returns:
+    - A DataFrame with the following structure. 
+        - The name of each column in the DataFrame corresponds to the value associated to the key 'name' in each dictionary in the column_specs list.
+        - The number of rows in the data frame will be equal to the length of the list of representative points in the dictionary with the largest number of representative points.
+        - The values in each column are the representative points in the list associated to the key 'reps' in each dictionary in the column_specs list. 
+          If the list of representative points is shorter than the list with the largest number of representative points, the remaining values in the column are NaN.
+    """
     # Prepare data dictionary
     data = {}
     max_length = 0
