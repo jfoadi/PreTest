@@ -25,3 +25,17 @@ def export_to_csv(data, filename, delimiter=",", include_index=False):
         print(f"Data successfully exported to {filename}")
     except Exception as e:
         print(f"Error exporting data to CSV: {e}")
+
+
+def export_formatted(data):
+    """
+    Export the DataFrame to a formatted text file.
+
+    Parameters:
+        data (pd.DataFrame): The DataFrame to export.
+    
+    Returns:
+        None
+    """
+    with open('./formatted_data.txt', 'w') as f:
+        f.write(data.to_string(header=True, index=True))
