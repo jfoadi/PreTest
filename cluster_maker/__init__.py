@@ -8,5 +8,7 @@
 from .dataframe_builder import (
     define_dataframe_structure,
     simulate_data,
-    export_to_csv
+    non_globular_clusters
 )
+
+from .data_exporter import export_to_csv, export_formatted
