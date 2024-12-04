@@ -3,12 +3,14 @@ Pre-Test SOLUTION
 
 1) Modify the package in order to make "test_cm.py" run successfully.
    [20]
+
     The issue was that the export_to_csv function was not defined in the module dataframe_builder. Therefore, it cannot be import from this module. 
     To make test_cm.py run succesfully I changed the __init__.py file by importing the export_to_csv function from the module data_exporter.
    
 2) Try and understand what the function define_dataframe_structure()
     does and write an appropriate, human-readable, docstring for it.
     [10]
+
     The `define_dataframe_structure` function is used to define the structure of a DataFrame based on the column specifications provided. It takes a list of dictionaries as input, where each dictionary represents a column in the DataFrame. Each dictionary contains the keys 'name' and 'reps'. 
 
     The function creates a DataFrame with the following structure:
@@ -22,6 +24,7 @@ Pre-Test SOLUTION
 3) Try and understand what the function simulate_data() does and
     write an appropriate, human-readable, docstring for it.
     [10]
+
     The `simulate_data` function is used to generate simulated data based on a seed DataFrame. 
 
     Here's a brief explanation of the function:
@@ -41,6 +44,7 @@ Pre-Test SOLUTION
     demonstration is up to you, but it should be clear and 
     informative. 
     [10]
+    
    Overall, this code allows the user to define the structure of a DataFrame by specifying the column names, repetitions, distribution, and variance. It provides a simple interface for generating simulated data based on the defined structure and exporting it to a CSV file. This code prompts the user to define the structure of a DataFrame and simulate data based on the defined structure. It then exports the simulated data to a CSV file in the data directory.
 
     Here's a step-by-step breakdown of what the code does:
